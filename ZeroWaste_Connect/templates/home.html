@@ -1,55 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZeroWaste Connect</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #43cea2, #185a9d);
-            text-align: center;
-            padding-top: 120px;
-            color: white;
-            margin: 0;
-            height: 100vh;
-        }
-        h1 { font-size: 48px; margin-bottom: 10px; }
-        p { font-size: 18px; margin-bottom: 40px; opacity: 0.9; }
-        .card {
-            background: white;
-            color: #333;
-            width: 400px;
-            margin: auto;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
-        }
-        button {
-            width: 100%;
-            padding: 14px;
-            margin: 12px 0;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-        .add-btn { background-color: #27ae60; color: white; }
-        .view-btn { background-color: #2980b9; color: white; }
-        .link-container { margin-top: 20px; font-size: 14px; }
-        a { color: #185a9d; text-decoration: none; font-weight: bold; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-    <h1>🌍 ZeroWaste Connect</h1>
-    <p>Connecting Surplus Food to Local NGOs</p>
-    <div class="card">
-        <a href="/login"><button class="view-btn">🔑 Login to Dashboard</button></a>
-        <div class="link-container">
-            New here? <br><br>
-            <a href="/register_restaurant">Register Restaurant</a> | 
-            <a href="/register_ngo">Register NGO</a>
-        </div>
-    </div>
+    <main class="page-shell">
+        <section class="hero reveal-up">
+            <p class="eyebrow">Food Rescue Network</p>
+            <h1>ZeroWaste Connect</h1>
+            <p id="greeting" class="greeting">Good day</p>
+            <p class="subtitle">Connecting surplus food from restaurants to local NGOs with <span id="dynamic-word" class="dynamic-word">speed</span>.</p>
+            
+            <div class="stats">
+                <article class="stat-item">
+                    <strong class="counter" data-target="{{ meals }}">0</strong>
+                    <span>Meals redirected</span>
+                </article>
+                <article class="stat-item">
+                    <strong class="counter" data-target="{{ ngos }}">0</strong>
+                    <span>Partner NGOs</span>
+                </article>
+                <article class="stat-item">
+                    <strong class="counter" data-target="{{ restaurants }}">0</strong>
+                    <span>Restaurants</span>
+                </article>
+                <article class="stat-item">
+                    <strong class="counter" data-target="{{ donors }}">0</strong>
+                    <span>Individual Donors</span>
+                </article>
+            </div> </section>
+
+        <section class="card reveal-up reveal-delay">
+            <a class="primary-link" href="{{ url_for('login') }}">Login to Dashboard</a>
+            <div class="divider"></div>
+            <p class="support-text">New here? Register your organization:</p>
+            <div class="actions">
+                <a href="{{ url_for('register_restaurant') }}" class="secondary-link">Register Restaurant</a>
+                <a href="{{ url_for('register_ngo') }}" class="secondary-link">Register NGO</a>
+                <a href="{{ url_for('register_donor') }}" class="secondary-link">Register Donor</a>
+            </div>
+            <p class="live-indicator"><span class="dot"></span> Live matching active</p>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var greetingElement = document.getElementById('greeting');
+            var dynamicWordElement = document.getElementById('dynamic-word');
+            var counters = document.querySelectorAll('.counter');
+
+            // Set dynamic greeting
+            var hour = new Date().getHours();
+            greetingElement.textContent = hour < 12 ? 'Good morning' : (hour < 18 ? 'Good afternoon' : 'Good evening');
+
+            // Rotating words logic
+            var words = ['speed', 'precision', 'transparency', 'impact'];
+            var wordIndex = 0;
+            setInterval(function () {
+                wordIndex = (wordIndex + 1) % words.length;
+                dynamicWordElement.classList.add('fade-word');
+                setTimeout(function () {
+                    dynamicWordElement.textContent = words[wordIndex];
+                    dynamicWordElement.classList.remove('fade-word');
+                }, 170);
+            }, 1800);
+
+            // Animated counter logic
+            function animateCounter(counter) {
+                var target = parseInt(counter.getAttribute('data-target'), 10);
+                if (target === 0 || isNaN(target)) {
+                    counter.textContent = '0';
+                    return;
+                }
+                var startTime = null;
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var progress = Math.min((timestamp - startTime) / 1100, 1);
+                    counter.textContent = Math.floor(progress * target).toLocaleString();
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            // Trigger animation when stats come into view
+            var observer = new IntersectionObserver(function (entries) {
+                if (entries[0].isIntersecting) {
+                    counters.forEach(animateCounter);
+                }
+            }, { threshold: 0.35 });
+            
+            var statsContainer = document.querySelector('.stats');
+            if(statsContainer) observer.observe(statsContainer);
+        })();
+    </script>
 </body>
 </html>
