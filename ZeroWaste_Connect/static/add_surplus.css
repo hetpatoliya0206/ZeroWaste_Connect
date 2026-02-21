@@ -1,0 +1,171 @@
+/*
+  Add surplus page styles.
+  Reuses shared tokens so this page feels part of the same product.
+*/
+:root {
+    --bg-a: #eff6e8;
+    --bg-b: #d5e8d2;
+    --panel: #ffffff;
+    --ink: #1f2d1f;
+    --muted: #5d7061;
+    --brand: #2f7b49;
+    --brand-dark: #245f39;
+    --line: #d4e2d6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "DM Sans", "Segoe UI", sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(45% 40% at 10% 12%, #ffffffd5 0, #ffffff00 62%),
+        radial-gradient(45% 35% at 88% 84%, #b7dab099 0, #b7dab000 64%),
+        linear-gradient(135deg, var(--bg-a), var(--bg-b));
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.page-shell {
+    width: min(980px, 100%);
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 22px;
+}
+
+.hero-panel,
+.form-panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: 0 18px 42px rgba(37, 61, 44, 0.12);
+}
+
+.hero-panel {
+    padding: 36px;
+}
+
+.eyebrow {
+    margin: 0;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand);
+}
+
+h1 {
+    margin: 12px 0;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(31px, 4.4vw, 48px);
+    line-height: 1.08;
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.tip-box {
+    margin-top: 16px;
+    border: 1px dashed #9ec9aa;
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #f7fcf6;
+    color: #3e5844;
+}
+
+.text-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: #48644f;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.text-link:hover { text-decoration: underline; }
+
+.form-panel {
+    padding: 30px;
+}
+
+.form-panel h2 {
+    margin: 0 0 14px;
+    font-family: "Fraunces", Georgia, serif;
+}
+
+.flash {
+    margin: 0 0 12px;
+    border: 1px solid #9ec9aa;
+    background: #eef9ed;
+    color: #2c5e3a;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-weight: 700;
+}
+
+.stack-form {
+    display: grid;
+    gap: 9px;
+}
+
+label {
+    font-size: 13px;
+    color: #3e5543;
+    font-weight: 700;
+}
+
+input {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 12px;
+    font: inherit;
+    color: var(--ink);
+    background: #fbfef9;
+}
+
+input:focus {
+    outline: 2px solid #9ec9aa;
+    outline-offset: 1px;
+}
+
+button {
+    margin-top: 6px;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: var(--brand);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+button:hover {
+    background: var(--brand-dark);
+    transform: translateY(-1px);
+}
+
+.reveal-up {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: revealUp 0.65s ease forwards;
+}
+
+.reveal-delay { animation-delay: 0.1s; }
+
+@keyframes revealUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 860px) {
+    .page-shell { grid-template-columns: 1fr; }
+    .hero-panel,
+    .form-panel { padding: 24px; }
+}

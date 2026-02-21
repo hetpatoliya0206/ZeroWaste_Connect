@@ -1,0 +1,215 @@
+/* Location: static/home.css
+   Purpose: Styles for the main landing page of ZeroWaste Connect
+   Updated: Support for 4-column statistics (Meals, NGOs, Restaurants, Donors)
+*/
+
+:root {
+    --bg-a: #eff6e8;
+    --bg-b: #d5e8d2;
+    --panel: #ffffff;
+    --ink: #1f2d1f;
+    --muted: #5d7061;
+    --brand: #2f7b49;
+    --brand-dark: #245f39;
+    --line: #d4e2d6;
+}
+
+/* Base Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "DM Sans", "Segoe UI", sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(48% 42% at 11% 15%, #ffffffd4 0, #ffffff00 62%),
+        radial-gradient(45% 40% at 87% 80%, #b2d9b299 0, #b2d9b200 63%),
+        linear-gradient(135deg, var(--bg-a), var(--bg-b));
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+/* Layout Shell */
+.page-shell {
+    width: min(980px, 100%);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: stretch;
+}
+
+/* Panel Containers */
+.hero, .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: 0 20px 45px rgba(37, 61, 44, 0.12);
+    padding: 42px;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Typography */
+.eyebrow {
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand);
+}
+
+h1 {
+    margin: 14px 0 8px;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.08;
+}
+
+.subtitle {
+    font-size: clamp(16px, 2vw, 19px);
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 36ch;
+}
+
+/* --- STATS SECTION (Updated for 4 items) --- */
+.stats {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Columns on Desktop */
+    gap: 10px;
+}
+
+.stat-item {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 8px;
+    background: #fafdf9;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-3px);
+    background: #ffffff;
+}
+
+.stat-item strong {
+    display: block;
+    color: var(--brand-dark);
+    font-size: clamp(20px, 2.5vw, 26px);
+    line-height: 1;
+}
+
+.stat-item span {
+    font-size: 11px;
+    color: #5c6f5f;
+    display: block;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* Action Links */
+.card {
+    display: grid;
+    gap: 18px;
+    align-content: center;
+    padding: 32px;
+}
+
+.primary-link {
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 16px;
+    background: var(--brand);
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 10px 22px rgba(47, 123, 73, 0.26);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.primary-link:hover {
+    background: var(--brand-dark);
+    transform: translateY(-2px);
+}
+
+.secondary-link {
+    text-decoration: none;
+    text-align: center;
+    padding: 11px;
+    border: 1.5px solid var(--brand);
+    color: var(--brand);
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.secondary-link:hover {
+    background: #eef7ee;
+}
+
+.divider {
+    height: 1px;
+    background: var(--line);
+}
+
+.actions {
+    display: grid;
+    gap: 10px;
+}
+
+/* Live Indicator Animation */
+.live-indicator {
+    font-size: 12px;
+    color: #5c6f5f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #49b86c;
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(73, 184, 108, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(73, 184, 108, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(73, 184, 108, 0); }
+}
+
+/* --- RESPONSIVE DESIGN --- */
+
+/* Tablet & Smaller Desktops */
+@media (max-width: 900px) {
+    .page-shell { 
+        grid-template-columns: 1fr; 
+    }
+    .stats { 
+        grid-template-columns: repeat(2, 1fr); /* 2x2 Grid */
+    }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+    .stats { 
+        grid-template-columns: 1fr; /* 1x4 Grid */
+    }
+    .hero, .card {
+        padding: 24px;
+    }
+}

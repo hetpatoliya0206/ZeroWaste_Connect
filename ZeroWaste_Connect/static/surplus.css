@@ -1,0 +1,118 @@
+:root {
+    --bg-a: #eff6e8;
+    --bg-b: #d5e8d2;
+    --panel: #ffffff;
+    --ink: #1f2d1f;
+    --muted: #5d7061;
+    --brand: #2f7b49;
+    --brand-dark: #245f39;
+    --line: #d4e2d6;
+}
+
+body {
+    margin: 0;
+    font-family: "DM Sans", sans-serif;
+    background: linear-gradient(135deg, var(--bg-a), var(--bg-b));
+    color: var(--ink);
+    padding: 40px 20px;
+}
+
+.dashboard-shell {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    gap: 30px;
+}
+
+.top-panel {
+    background: var(--panel);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--line);
+}
+
+.logout-link {
+    color: #d9534f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: var(--panel);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid var(--line);
+}
+
+.stat-card h2 { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+.stat-card p { font-size: 28px; font-weight: bold; color: var(--brand); margin: 0; }
+
+.capacity-panel {
+    background: var(--panel);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+}
+
+.progress-bar {
+    height: 12px;
+    background: #e9ecef;
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--brand);
+    transition: width 0.5s ease;
+}
+
+.capacity-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.capacity-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+.capacity-form button {
+    background: var(--brand);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.record-card {
+    background: var(--panel);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--line);
+    position: relative;
+}
+
+.action-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--brand);
+    font-weight: bold;
+    text-decoration: none;
+}
